@@ -4,9 +4,9 @@ ZSH_THEME_GIT_PROMPT_DIRTY="$fg[red]+"
 ZSH_THEME_GIT_PROMPT_CLEAN="$fg[green]"
 
 function battery_charge() {
-    if [ -e /Users/addiittya/Developer/Python/exec/batcharge.py ]
+    if [ -e ~/Documents/exec/batcharge.py ]
     then
-        echo `python /Users/addiittya/Developer/Python/exec/batcharge.py`
+        echo `python ~/Documents/exec/batcharge.py`
     else
         echo '';
     fi
@@ -32,15 +32,13 @@ fi
 
 local bat=$(battery_charge)
 if [ ${#bat} != 0 ]; then
-    ((bat = ${#bat} - 11))
+    ((bat = ${#bat} - 18))
 else
     bat=0
 fi
 
 local termwidth
-# (( termwidth = ${COLUMNS} - 13 - ${#HOST} - ${#$(get_pwd)} - ${bat} - ${git} ))
-(( termwidth = ${COLUMNS} - 13 - ${#HOST} - ${#$(get_pwd)} - ${bat} ))
-
+(( termwidth = ${COLUMNS} - 13 - ${#HOST} - ${#$(get_pwd)} - ${bat} - ${git} ))
 
 local spacing=""
 for i in {1..$termwidth}; do
@@ -52,5 +50,5 @@ echo $spacing
 }
 
 PROMPT='
-%{$fg[white]%}%n%{$reset_color%} on %{$fg[blue]%}%m%{$reset_color%} in $fg[magenta]$(get_pwd)%{$reset_color%} at %{$fg[cyan]%}%T%{$reset_color%}$(put_spacing)$(battery_charge)
-$(git_prompt_info)$reset_color☞ '
+%{$fg[red]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in $fg[white]$(get_pwd)$(put_spacing)$(git_prompt_info) $(battery_charge)
+$reset_color→ '
