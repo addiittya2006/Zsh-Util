@@ -3,44 +3,21 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="]$reset_color"
 ZSH_THEME_GIT_PROMPT_DIRTY="$fg[red]+"
 ZSH_THEME_GIT_PROMPT_CLEAN="$fg[green]"
 
-function battery_charge() {
-    if [ -e /Users/addiittya/Developer/Python/exec/batcharge.py ]
-    then
-        echo `python /Users/addiittya/Developer/Python/exec/batcharge.py`
-    else
-        echo '';
-    fi
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 function get_pwd() {
   echo "${PWD/$HOME/~}"
 }
 
-function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
-
 function put_spacing() {
 
-local git=$(git_prompt_info)
-if [ ${#git} != 0 ]; then
-    ((git=${#git} - 10))
-else
-    git=0
-fi
-
-local bat=$(battery_charge)
-if [ ${#bat} != 0 ]; then
-    ((bat = ${#bat} - 11))
-else
-    bat=0
-fi
+local bat=$(battery_level_gauge)
 
 local termwidth
-# (( termwidth = ${COLUMNS} - 13 - ${#HOST} - ${#$(get_pwd)} - ${bat} - ${git} ))
-(( termwidth = ${COLUMNS} - 13 - ${#HOST} - ${#$(get_pwd)} - ${bat} ))
-
+(( termwidth = ${COLUMNS} - ${#USERNAME} - ${#HOST} - ${#$(get_pwd)} - ${#bat} ))
 
 local spacing=""
 for i in {1..$termwidth}; do
@@ -52,5 +29,5 @@ echo $spacing
 }
 
 PROMPT='
-%{$fg[white]%}%n%{$reset_color%} on %{$fg[blue]%}%m%{$reset_color%} in $fg[magenta]$(get_pwd)%{$reset_color%} at %{$fg[cyan]%}%T%{$reset_color%}$(put_spacing)$(battery_charge)
-$(git_prompt_info)$reset_color☞ '
+%{$fg[magenta]%}%n@%m%{$reset_color%} in %{$fg[yellow]%}$(get_pwd)%{$reset_color%} at %{$fg[cyan]%}%T%{$reset_color%}$(put_spacing)$(battery_level_gauge)
+$(git_prompt_info)$reset_color> '

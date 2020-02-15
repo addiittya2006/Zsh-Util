@@ -1,28 +1,20 @@
+alias ll="ls -lahG"
+
+# MacOS aliases
 # alias python3="unset PYTHONPATH; python3"
-
 # alias megacmd="/Applications/MEGAcmd.app/Contents/MacOS/MEGAcmdShell"
-
 # alias findershowall="defaults write com.apple.finder AppleShowAllFiles YES"
-
 # alias finderhideall="defaults write com.apple.finder AppleShowAllFiles NO"
-
 # alias python="DYLD_LIBRARY_PATH=/Users/addiittya/Developer/Ruby/mysql/lib python"
-
 # alias torb="/Users/addiittya/Developer/Ruby/rubyconsole"
-
 # alias tojs="/Users/addiittya/Developer/JS/use_meanstack"
-
 # alias vdl="/Users/addiittya/Downloads/ydl/ydl.sh"
-
 # alias gpg="/usr/local/Cellar/gnupg@1.4/1.4.21/bin/gpg1"
-
 # alias inlogin="python3 ~/Developer/Python/cyberutil/sleep.py"
 # alias inlogin="python3 ~/Documents/exec/pass/sleep.py &> /dev/null &"
-
-# alias ll="ls -lahG"
-
-alias edit="/usr/local/bin/code -w"
-
+# alias edit="/usr/local/bin/code -w"
 # alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w"
-
 # alias edit="/usr/local/bin/mate -w"
+
+# WSL aliases
+alias ef="/mnt/c/Users/theci/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code -w"
